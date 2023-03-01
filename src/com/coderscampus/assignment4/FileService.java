@@ -12,15 +12,17 @@ public class FileService {
 	public final String MASTERLIST = "student-master-list.csv";
 
 	public Student[] readStudentsFromFile() {
-		Student[] students = new Student[101];
-		BufferedReader reader;
+		Student[] student = new Student[101];
 		try {
-			reader = new BufferedReader(new FileReader(MASTERLIST));
-			String line = "";
+			BufferedReader reader = new BufferedReader(new FileReader(MASTERLIST));
+			String line = ",";
 			int i = 0;
 			while ((line = reader.readLine()) != null) {
-				students[i] = new Student(line.split(","));
-				i++;
+				if(!line.equals("")) {
+					String[] studentData = line.split(",");
+					student[i] = new Student(studentData[0], studentData[1], studentData[2], studentData[3]);
+					i++;
+				}
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -28,19 +30,18 @@ public class FileService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return students;
+		return student;
 	}
 
-	public void writeStudentsToFile(Student[] students, String fileName) throws IOException {
-		BufferedWriter writer;
+	public void writeStudentsToFile(Student[] student, String fileName) {
+		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(fileName));
 			writer.write("Student ID, Student Name, Student Course, Student Grade\n");
-			for (Student student : students) {
-				if (students != null) {
-					writer.write(student.getStudentID() + "," + student.getStudentName() + ","
-							+ student.getStudentCourse() + "," + student.getStudentGrade() + "\n");
+			for(Student stu : student) {
+				if(stu != null) {
+					writer.write(stu.getStudentID() + "," + stu.getStudentName() + "," + stu.getStudentCourse() +
+							"," + stu.getStudentGrade() + "\n");
 				}
 			}
 			writer.close();
@@ -49,7 +50,6 @@ public class FileService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
-
+	
 }

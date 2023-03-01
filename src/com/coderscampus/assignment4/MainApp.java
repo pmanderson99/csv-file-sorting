@@ -8,6 +8,7 @@ public class MainApp {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		StudentService studentService = new StudentService();
 		studentService.generateCSVReport();
+		
 	}
 	
 }
