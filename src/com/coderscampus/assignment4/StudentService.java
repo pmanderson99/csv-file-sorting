@@ -17,15 +17,15 @@ public class StudentService {
 		students = fileService.readStudentsFromFile();
 		Arrays.sort(students);
 		int csStu = 0;
-		int stStu = 0;
 		int apMthStu = 0;
-		for (int i = 0; i < students.length; i++) {
-			if (students[i].getStudentCourse().matches("COMPSCI")) {
-				compSciStudents[csStu++] = students[i];
-			} else if (students[i].getStudentCourse().matches("STAT")) {
-				statStudents[stStu++] = students[i];
-			} else {
-				apMthStudents[apMthStu++] = students[i];
+		int stStu = 0;
+		for (Student student: students) {
+			if (student.getStudentCourse().contains("COMPSCI")) {
+				compSciStudents[csStu++] = student;
+			} else if (student.getStudentCourse().contains("APMTH")) {
+				apMthStudents[apMthStu++] = student;
+			} else if (student.getStudentCourse().contains("STAT")){
+				statStudents[stStu++] = student;
 			}
 		}
 
